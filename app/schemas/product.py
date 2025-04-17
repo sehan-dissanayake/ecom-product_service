@@ -4,6 +4,11 @@ class ProductCreate(BaseModel):
     name: str
     price: float
     description: str | None = None
+    
+class ProductUpdate(BaseModel):
+    name: str | None = None
+    price: float | None = None
+    description: str | None = None    
 
 class Product(ProductCreate):
     id: str
