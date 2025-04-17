@@ -3,14 +3,12 @@ from beanie import init_beanie
 from app.models.product import Product
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
+import os
 
-MONGO_DETAILS = "mongodb://root:password@localhost:27018"
+MONGO_DETAILS = os.getenv("MONGODB_URL", "mongodb://root:password@localhost:27017")
 
 client = AsyncIOMotorClient(MONGO_DETAILS)
 database = client.product_db
-
-def get_database():
-    return database
 
 async def initialize_database():
     await init_beanie(

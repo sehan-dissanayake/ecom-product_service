@@ -1,15 +1,28 @@
 services:
+  product_service:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URL=mongodb://root:password@mongodb:27017
+    networks:
+      - microservices_net
+
   mongodb:
     image: mongo:latest
-    container_name: product_db
-    ports:
-      - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - microservices_net
 
 volumes:
   mongodb_data:
-    
+
+networks:
+  microservices_net:
+    driver: bridge

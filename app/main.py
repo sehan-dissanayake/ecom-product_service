@@ -9,7 +9,3 @@ app.include_router(product_router)
 @app.get("/health")
 async def health_check():
     return {"status": "OK"}
-
-@app.get("/")
-async def root():
-    return {"message": "Welcome to the FastAPI application!"}
