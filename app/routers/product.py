@@ -1,12 +1,14 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from app.models.product import Product
 from app.schemas.product import ProductCreate, ProductUpdate
 from beanie import PydanticObjectId
+from app.dependencies.auth import get_current_user
 
 router = APIRouter(prefix="/products", tags=["products"])
 
 @router.post("/", response_model=Product)
-async def create_product(product: ProductCreate):
+async def create_product(product: ProductCreate, 
+    current_user: dict = Depends(get_current_user)):
     new_product = Product(**product.model_dump())
     await new_product.insert()
     return new_product

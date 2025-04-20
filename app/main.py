@@ -3,6 +3,7 @@ from app.routers.product import router as product_router
 from app.database import lifespan as db_lifespan
 from fastapi.middleware.cors import CORSMiddleware
 
+
 app = FastAPI(lifespan=db_lifespan)
 
 app.include_router(product_router)
